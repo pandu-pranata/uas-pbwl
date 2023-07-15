@@ -5,15 +5,29 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('dashboard.index') }}">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('dashboard.index') }}" :active="request()->routeIs('dashboard.index')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    @if (Auth::user()->roles == 'ADMIN')
+                    <x-nav-link href="{{ route('dashboard.product.index') }}" :active="request()->routeIs('dashboard.product.index')">
+                        {{ __('Product') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('dashboard.transaction.index') }}" :active="request()->routeIs('dashboard.transaction.index')">
+                        {{ __('Transaction') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('dashboard.user.index') }}" :active="request()->routeIs('dashboard.user.index')">
+                        {{ __('User') }}
+                    </x-nav-link>
+                    @endif
+                    <x-nav-link href="{{ route('dashboard.my-transaction.index') }}" :active="request()->routeIs('dashboard.my-transaction.index')">
+                        {{ __('My Transaction') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -53,18 +67,16 @@
                                         </x-dropdown-link>
                                     @endcan
 
+                                    <div class="border-t border-gray-200"></div>
+
                                     <!-- Team Switcher -->
-                                    @if (Auth::user()->allTeams()->count() > 1)
-                                        <div class="border-t border-gray-200"></div>
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Switch Teams') }}
+                                    </div>
 
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('Switch Teams') }}
-                                        </div>
-
-                                        @foreach (Auth::user()->allTeams() as $team)
-                                            <x-switchable-team :team="$team" />
-                                        @endforeach
-                                    @endif
+                                    @foreach (Auth::user()->allTeams() as $team)
+                                        <x-switchable-team :team="$team" />
+                                    @endforeach
                                 </div>
                             </x-slot>
                         </x-dropdown>
@@ -139,8 +151,22 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link href="{{ route('dashboard.index') }}" :active="request()->routeIs('dashboard.index')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            @if (Auth::user()->roles == 'ADMIN')
+                <x-responsive-nav-link href="{{ route('dashboard.product.index') }}" :active="request()->routeIs('dashboard.product.index')">
+                    {{ __('Product') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('dashboard.transaction.index') }}" :active="request()->routeIs('dashboard.transaction.index')">
+                    {{ __('Transaction') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('dashboard.user.index') }}" :active="request()->routeIs('dashboard.user.index')">
+                    {{ __('User') }}
+                </x-responsive-nav-link>
+            @endif  
+            <x-responsive-nav-link href="{{ route('dashboard.my-transaction.index') }}" :active="request()->routeIs('dashboard.my-transaction.index')">
+                {{ __('My Transaction') }}
             </x-responsive-nav-link>
         </div>
 
@@ -200,18 +226,16 @@
                         </x-responsive-nav-link>
                     @endcan
 
+                    <div class="border-t border-gray-200"></div>
+
                     <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200"></div>
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('Switch Teams') }}
+                    </div>
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
-                        </div>
-
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link" />
-                        @endforeach
-                    @endif
+                    @foreach (Auth::user()->allTeams() as $team)
+                        <x-switchable-team :team="$team" component="responsive-nav-link" />
+                    @endforeach
                 @endif
             </div>
         </div>
