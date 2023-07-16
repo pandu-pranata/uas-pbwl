@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckoutRequst;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\TransactionItem;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class FrontendController extends Controller
 {
@@ -47,6 +53,61 @@ class FrontendController extends Controller
         $item->delete();
 
         return redirect('cart');
+    }
+
+    public function checkout(CheckoutRequst $request)
+    {
+        $data = $request->all();
+
+        $carts = Cart::with(['product'])->where('users_id', Auth::user()->id)->get();
+
+        $data['users_id'] = Auth::user()->id;
+        $data['total_price'] = $carts->sum('product.price');
+
+        // dd($data);
+        $transaction = Transaction::create($data);
+
+        foreach ($carts as $cart) {
+            $items[] = TransactionItem::create([
+                'transactions_id' => $transaction->id,
+                'users_id' => $cart->users_id,
+                'products_id' => $cart->products_id
+            ]);
+        }
+
+        Cart::where('users_id', Auth::user()->id)->delete();
+
+        \Midtrans\Config::$serverKey = config('services.midtrans.serverKey');
+        \Midtrans\Config::$isProduction = config('services.midtrans.isProduction');
+        \Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
+        \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
+
+        $midtrans = [
+            'transaction_details' => [
+                'order_id' => 'LUX-' . $transaction->id,
+                'gross_amount' => (int) $transaction->total_price
+            ],
+            'customer_details' => [
+                'first_name' => $transaction->name,
+                'email' => $transaction->email
+            ],
+            'enabled_payments' => ['gopay', 'bank_transfer'],
+            'vtweb' => []
+        ];
+
+        // dd($request->all());
+        try {
+            $paymentUrl = \Midtrans\Snap::createTransaction($midtrans)->redirect_url;
+
+            $transaction->payment_url = $paymentUrl;
+            $transaction->save();
+
+            return redirect($paymentUrl);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return redirect('checkout-success');
     }
 
     public function success(Request $request)
