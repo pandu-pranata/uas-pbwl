@@ -225,7 +225,7 @@
                       />
                     </button>
                   </div>
-                  <div class="px-2 w-6/12 h-24 mb-4">
+                  {{-- <div class="px-2 w-6/12 h-24 mb-4">
                     <button
                       type="button"
                       data-value="mastercard"
@@ -264,7 +264,7 @@
                         alt="Logo american-logo-american-express"
                       />
                     </button>
-                  </div>
+                  </div> --}}
                 </div>
               </div>
               <div class="text-center">

@@ -1,5 +1,5 @@
 <!-- START: ASIDE MENU -->
-<section class="">
+{{-- <section class="">
   <div class="border-t border-b border-gray-200 py-12 mt-16 px-4">
     <div class="flex justify-center mb-8">
       <img
@@ -88,13 +88,13 @@
       </div>
     </aside>
   </div>
-</section>
+</section> --}}
 <!-- END: ASIDE MENU -->
 
 <!-- START: FOOTER -->
 <footer class="flex text-center px-4 py-8 justify-center">
   <p class="text-sm">
-    Copyright 2023 • All Rights Reserved LuxSpace by Azhar Ramadhan
+    Copyright 2023 • All Rights Reserved LuxSpace by Pandu Pranata
   </p>
 </footer>
 <!-- END: FOOTER -->

@@ -2,12 +2,12 @@
 
 @section('content')
   <!-- START: HERO -->
-    <section class="flex items-center hero">
+    {{-- <section class="flex items-center hero">
       <div
         class="w-full absolute z-20 inset-0 md:relative md:w-1/2 text-center flex flex-col justify-center hero-caption"
       >
         <h1 class="text-3xl md:text-5xl leading-tight font-semibold">
-          The Room <br class="" />You've Dreaming
+          Dekorasi rumah <br class="" />Yang anda Inginkan
         </h1>
         <h2 class="px-8 text-base md:px-0 md:text-lg my-6 tracking-wide">
           Kami menyediakan furniture berkelas yang
@@ -48,11 +48,11 @@
           />
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- END: HERO -->
 
     <!-- START: BROWSE THE ROOM -->
-    <section class="flex bg-gray-100 py-16 px-4" id="browse-the-room">
+    {{-- <section class="flex bg-gray-100 py-16 px-4" id="browse-the-room">
       <div class="container mx-auto">
         <div class="flex flex-start mb-4">
           <h3 class="text-2xl capitalize font-semibold">
@@ -141,7 +141,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- END: BROWSE THE ROOM -->
 
     <!-- START: JUST ARRIVED -->
@@ -149,7 +149,7 @@
       <div class="container mx-auto mb-4">
         <div class="flex justify-center text-center mb-4">
           <h3 class="text-2xl capitalize font-semibold">
-            Just Arrived <br class="" />this summer for you
+            produk unggulan kami <br class="" /> penawaran khusus buat anda pelanggan setia kami
           </h3>
         </div>
       </div>

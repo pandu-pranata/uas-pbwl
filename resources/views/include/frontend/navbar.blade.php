@@ -4,10 +4,11 @@
     <div class="flex flex-stretch items-center">
       <div class="w-56 items-center flex">
         <a href="{{ route('home') }}">
-          <img
+          {{-- <img
             src="{{ url('/frontend/images/content/logo.png') }}"
             alt="Luxspace | Fulfill your house with beautiful furniture"
-          />
+          /> --}}
+          <h1 style="font-weight: bold">Syafhijab Store</h1>
       </a>
       </div>
       <div class="w-full"></div>
